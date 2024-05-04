@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import axios from 'axios';
 import { Server, Socket } from 'socket.io';
 import { AssemblyAI } from 'assemblyai';
 
@@ -74,7 +73,8 @@ export class TranscriptionGateway implements OnGatewayConnection, OnGatewayDisco
   @SubscribeMessage('uploadFileToServer')
   async uploadFileToServer(@ConnectedSocket() client: Socket, @MessageBody() data: any) {
     try {
-      fs.writeFileSync(this.fileName, data)
+      fs.writeFileSync(this.fileName, data);
+      client.emit('fileUploaded', { message: 'Archivo guardado exitosamente.' });
     } catch (error) {
       console.error(error);
       client.emit('uploadFileError', { message: 'Error al guardar el archivo.', error: error.message });
