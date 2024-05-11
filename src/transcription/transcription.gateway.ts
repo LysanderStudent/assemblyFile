@@ -74,7 +74,7 @@ export class TranscriptionGateway implements OnGatewayConnection, OnGatewayDisco
   async uploadFileToServer(@ConnectedSocket() client: Socket, @MessageBody() data: any) {
     try {
       fs.writeFileSync(this.fileName, data);
-      client.emit('fileUploaded', { message: 'Archivo guardado exitosamente.' });
+      client.emit('fileUploaded', { message: 'Archivo guardado exitosamente. Iniciando transcripción...' });
     } catch (error) {
       console.error(error);
       client.emit('uploadFileError', { message: 'Error al guardar el archivo.', error: error.message });
