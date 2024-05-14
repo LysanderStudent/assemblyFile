@@ -12,10 +12,12 @@ import {
   WebSocketServer
 } from '@nestjs/websockets';
 
+const MB = 200;
+
 @WebSocketGateway(3010, {
   cors: { origin: '*' },
-  maxHttpBufferSize: 200 * 1024 * 1024
-}) // * http://localhost:3010
+  maxHttpBufferSize: MB * 1024 * 1024
+}) // * http://[::1]:3010
 export class TranscriptionGateway implements OnGatewayConnection, OnGatewayDisconnect {
   private fileName = 'recorder.wav';
 
@@ -53,9 +55,18 @@ export class TranscriptionGateway implements OnGatewayConnection, OnGatewayDisco
       })
 
       let text = '';
+      let speakersCount = 0;
+      const letterSpeaker: string[] = [];
 
       for (let utterance of transcript.utterances) {
-        const line = `Speaker ${utterance.speaker}: ${utterance.text}\n`;
+        if (!letterSpeaker.includes(utterance.speaker)) {
+          speakersCount++;
+          letterSpeaker.push(utterance.speaker);
+        }
+      }
+
+      for (let utterance of transcript.utterances) {
+        const line = `Speaker ${utterance.speaker}: ${utterance.text} \n`;
         text += line;
       }
 
