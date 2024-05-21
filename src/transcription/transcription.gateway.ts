@@ -14,10 +14,10 @@ import {
 
 const MB = 200;
 
-@WebSocketGateway(3010, {
+@WebSocketGateway({
   cors: { origin: '*' },
   maxHttpBufferSize: MB * 1024 * 1024,
-}) // * http://[::1]:3010
+}) // * http://[::1]:PORT
 export class TranscriptionGateway
   implements OnGatewayConnection, OnGatewayDisconnect
 {

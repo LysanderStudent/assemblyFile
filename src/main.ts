@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ extended: true, limit: '50mb' }));
 
-  await app.listen(3001);
+  await app.listen(process.env.PORT || 3001);
 
   const logger = new Logger();
   logger.log(`Application started on port ${await app.getUrl()}`);
