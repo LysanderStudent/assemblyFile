@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api/');
   app.enableCors({
-    origin: 'https://send-record.vercel.app',
+    origin: '*',
     methods: ['POST', 'PUT', 'DELETE', 'GET']
   });
   app.use(json({ limit: '50mb' }));
