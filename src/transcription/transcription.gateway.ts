@@ -77,7 +77,7 @@ export class TranscriptionGateway
 
       fs.writeFileSync('text-speakers.txt', text);
       console.log('Archivo de texto guardado exitosamente');
-      client.emit('audioTranscripted', { text });
+      client.emit('audioTranscripted', { text, speakersCount });
     } catch (error) {
       console.error(error);
       client.emit('transcriptError', {
