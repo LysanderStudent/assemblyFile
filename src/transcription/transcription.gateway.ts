@@ -46,12 +46,12 @@ export class TranscriptionGateway
   async transcript(
     @ConnectedSocket() client: Socket,
     @MessageBody() data: { language: string },
-  ) {
-    const clientAssembly = new AssemblyAI({
-      apiKey: process.env.ASSEMBLY_KEY,
-    });
-
+  ) {    
     try {
+      const clientAssembly = new AssemblyAI({
+        apiKey: process.env.ASSEMBLY_KEY,
+      });
+
       console.log('Transcripting...');
       const transcript = await clientAssembly.transcripts.transcribe({
         audio: this.fileName,
