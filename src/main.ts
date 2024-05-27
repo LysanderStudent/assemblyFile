@@ -8,6 +8,13 @@ async function bootstrap() {
   app.setGlobalPrefix('api/');
   app.enableCors({
     origin: '*',
+    allowedHeaders: [
+      'Origin', 
+      'X-Requested-With', 
+      'Content-Type', 
+      'Accept',
+      'Authorization'
+    ],
     methods: ['POST', 'PUT', 'DELETE', 'GET']
   });
   app.use(json({ limit: '50mb' }));
